@@ -36,10 +36,11 @@
 		C840857F2B977BF500A04B6C /* Database.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Database.cpp; sourceTree = "<group>"; };
 		C84085802B977BF500A04B6C /* Database.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Database.hpp; sourceTree = "<group>"; };
 		C84085842B977CBA00A04B6C /* GroundUpDB.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GroundUpDB.hpp; sourceTree = "<group>"; };
-		C84085892B97818700A04B6C /* NoSql */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = NoSql; path = "/Users/ziruizheng/Documents/C projects folder/NoSql/build/Debug/NoSql"; sourceTree = "<absolute>"; };
 		C840858A2B97A03200A04B6C /* keyvalues-tests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "keyvalues-tests.cpp"; sourceTree = "<group>"; };
 		C840858C2B97E97E00A04B6C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C840858F2B97EC3400A04B6C /* cxxopts.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cxxopts.hpp; sourceTree = "<group>"; };
+		C84085912B98D94000A04B6C /* NoSql */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NoSql; sourceTree = BUILT_PRODUCTS_DIR; };
+		C871051F2B99587C00E0D5E3 /* extdatabase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = extdatabase.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				C840855B2B976D6A00A04B6C /* NoSql */,
+				C84085912B98D94000A04B6C /* NoSql */,
 			);
 			sourceTree = "<group>";
 		};
@@ -115,6 +117,7 @@
 			children = (
 				C84085802B977BF500A04B6C /* Database.hpp */,
 				C840857C2B977AAF00A04B6C /* GroundUpDB.hpp */,
+				C871051F2B99587C00E0D5E3 /* extdatabase.hpp */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -136,7 +139,7 @@
 			);
 			name = NoSql;
 			productName = NoSql;
-			productReference = C84085892B97818700A04B6C /* NoSql */;
+			productReference = C84085912B98D94000A04B6C /* NoSql */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -238,11 +241,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 11.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = NoSql/NoSql/groundupdb/GroundUpDB.hpp;
 			};
 			name = Debug;
 		};
@@ -291,10 +296,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				MACOSX_DEPLOYMENT_TARGET = 11.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = NoSql/NoSql/groundupdb/GroundUpDB.hpp;
 			};
 			name = Release;
 		};
@@ -302,8 +309,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = NoSql/NoSql/groundupdb/GroundUpDB.hpp;
 			};
 			name = Debug;
 		};
@@ -311,8 +320,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = NoSql/NoSql/groundupdb/GroundUpDB.hpp;
 			};
 			name = Release;
 		};

@@ -9,25 +9,32 @@
 #define Database_hpp
 
 #include <string>
+#include <memory>
 
-class Database{
+namespace groundupdb{
+
+class IDatabase{
 public:
-    Database(std::string dbname, std::string fullpath);
+    IDatabase() = default;
+    IDatabase(std::string dbname, std::string fullpath);
     
-    std::string getDirectory();
-    static Database createEmpty(std::string dbname);
+    virtual ~IDatabase() = default;
+    virtual std::string getDirectory() = 0;
+    
     
     
     //Key-Value use cases
-    void setKeyValue(const std::string& key, const std::string& value);
-    std::string getKeyValue(const std::string& key);
+    virtual void setKeyValue(const std::string& key, const std::string& value) = 0;
+    virtual std::string getKeyValue(const std::string& key) = 0;
     
     // management function
-    void destroy();
+    static const std::unique_ptr<IDatabase> createEmpty(std::string dbname);
+    static const std::unique_ptr<IDatabase> load(std::string& dbname);
+    virtual void destroy() = 0;
     
-protected:
-    std::string m_name;
-    std::string m_fullpath;
+    
 };
+
+}
 
 #endif /* Database_hpp */

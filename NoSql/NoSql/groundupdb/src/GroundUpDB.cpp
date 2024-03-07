@@ -6,12 +6,19 @@
 //
 
 #include "GroundUpDB.hpp"
+#include "extdatabase.hpp"
 
+using namespace groundupdb;
+using namespace groundupdbext;
 
-GroundUpDB::GroundUpDB(){
+groundupdb::GroundUpDB::GroundUpDB(){
     
 }
 
-Database GroundUpDB::createEmptyDB(std::string& dbname){
-    return Database::createEmpty(dbname);
+std::unique_ptr<IDatabase> GroundUpDB::createEmptyDB(std::string& dbname){
+    return EmbeddedDatabase::createEmpty(dbname);
+}
+
+std::unique_ptr<IDatabase> GroundUpDB::loadDB(std::string& dbname){
+    return EmbeddedDatabase::load(dbname);
 }
