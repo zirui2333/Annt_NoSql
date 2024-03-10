@@ -1,5 +1,7 @@
 The simple nosql database to store various type of variables and effciently search the stored variable.
 
+
+
 **Explaination of "extdatabase", "inMemoryKeyValueStore" and "FileKeyValueStore**":
 
 Before getting into details, the store and keyvalueStore classes serve as interfaces. So instead of key value, we might have a document store in the future serving as another sub-category under store interface. From right now, we have KEY-VALUE store mechinism all implemented. 
