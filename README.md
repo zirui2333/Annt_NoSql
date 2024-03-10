@@ -1,6 +1,8 @@
 The simple nosql database to store various type of variables and effciently search the stored variable.
 
-Explaination of "extdatabase", "inMemoryKeyValueStore" and "FileKeyValueStore": Before getting into details, the store and keyvalueStore classes serve as interfaces. So instead of key value, we might have a document store in the future serving as another sub-category under store interface. From right now, we have KEY-VALUE store mechinism all implemented. 
+Explaination of "extdatabase", "inMemoryKeyValueStore" and "FileKeyValueStore": 
+
+Before getting into details, the store and keyvalueStore classes serve as interfaces. So instead of key value, we might have a document store in the future serving as another sub-category under store interface. From right now, we have KEY-VALUE store mechinism all implemented. 
 
 And in terms of ways of storage in computer: We have in memory and in disk. 1) InMemoryStore is an unordered_map store type, everything is pushed into the map<string, string>, it can be primary storage or a supporting backup storage. 2) FileStore is storing everything into file by <fstream> and <filesystem>.
 
