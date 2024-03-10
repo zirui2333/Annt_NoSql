@@ -1,6 +1,7 @@
 #include <iostream>
 #include "GroundUpDB.hpp"
 #include "cxxopts.hpp"
+#include "Time.hpp"
 
 cxxopts::Options options("groundupdb-cli", "CLI for GroundUpDB");
 
@@ -8,7 +9,8 @@ void printUsage(){
     std::cout << "Bad config!" << std::endl;
 }
 
-int main(int argc, char* argv[]){
+int rest4(int argc, char* argv[]){
+    Time timer;
     options.add_options()
     ("c,create", "Create a DB")
     ("d,destroy", "Destroy a DB")

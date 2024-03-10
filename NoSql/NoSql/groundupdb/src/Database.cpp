@@ -7,14 +7,35 @@
 
 #include "Database.hpp"
 #include "extdatabase.hpp"
-#include <iostream>
-#include <fstream>
+
 #include <filesystem>
 
-namespace fs = std::filesystem;
 
 using namespace groundupdb;
 using namespace groundupdbext;
+
+namespace fs = std::filesystem;
+/*
+// 'Hidden' store Impl class
+class Store::Impl {
+public:
+  Impl();
+private:
+};
+Store::Impl::Impl() {
+  ;
+}
+// 'Hidden' key value store Impl class
+class KeyValueStore::Impl {
+public:
+  Impl();
+private:
+};
+KeyValueStore::Impl::Impl() {
+  ;
+}
+*/
+
 
 
 
@@ -23,7 +44,8 @@ using namespace groundupdbext;
 class EmbeddedDatabase::Impl : public IDatabase{
 public:
     Impl(std::string& dbname, std::string& fullpath);
-    
+    Impl(std::string dbname, std::string fullpath,
+           std::unique_ptr<KeyValueStore>& kvStore);
     ~Impl();
     std::string getDirectory();
     
@@ -35,15 +57,109 @@ public:
     
     // management function
     static const std::unique_ptr<IDatabase> createEmpty(std::string dbname);
+    static const std::unique_ptr<IDatabase> createEmpty(std::string dbname,std::unique_ptr<KeyValueStore>& kvStore);
     static const std::unique_ptr<IDatabase> load(std::string& dbname);
     void destroy();
 
 private:
     std::string m_name;
     std::string m_fullpath;
+    std::unique_ptr<KeyValueStore> m_keyValueStore;
 };
 
 
+
+
+
+
+
+
+
+EmbeddedDatabase::Impl::Impl(std::string& dbname, std::string& fullpath)
+:m_name(dbname), m_fullpath(fullpath)
+{
+    
+    
+    //Explicitly specify base type so it matches the make_qunique expected class
+    std::unique_ptr<KeyValueStore> fileStore = std::make_unique<FileKeyValueStore>(fullpath);
+    std::unique_ptr<KeyValueStore> memoryStore = std::make_unique<MemoryKeyValueStore>(fileStore);
+//
+    m_keyValueStore = std::move(memoryStore);
+}
+
+EmbeddedDatabase::Impl::Impl(std::string dbname, std::string fullpath,
+     std::unique_ptr<KeyValueStore>& kvStore)
+: m_name(dbname), m_fullpath(fullpath), m_keyValueStore(kvStore.release()){
+    
+}
+
+EmbeddedDatabase::Impl::~Impl(){
+    
+}
+// Embeded database
+
+
+
+// Management functions
+const std::unique_ptr<IDatabase> EmbeddedDatabase::Impl::createEmpty(std::string dbname){
+    std::string basedir(".groundupdb");
+    
+    fs::create_directory(basedir);
+    
+    if (!fs::exists(basedir)) {
+          fs::create_directory(basedir);
+      }
+    
+    std::string dbfolder(basedir + "/" + dbname);
+    
+    return std::make_unique<EmbeddedDatabase::Impl>(dbname, dbfolder);
+}
+
+
+
+const std::unique_ptr<IDatabase> EmbeddedDatabase::Impl::createEmpty(std::string dbname,std::unique_ptr<KeyValueStore>& kvStore){
+    std::string basedir(".groundupdb");
+    if(!fs::exists(basedir)){
+        fs::create_directory(basedir);
+    }
+    std::string dbfolder(basedir + "/" + dbname);
+    return std::make_unique<EmbeddedDatabase::Impl>(dbname, dbfolder, kvStore);
+}
+
+
+void EmbeddedDatabase::Impl::destroy(){
+    m_keyValueStore -> clear();
+}
+
+const std::unique_ptr<IDatabase> EmbeddedDatabase::Impl::load(std::string& dbname){
+    std::string basedir(".groundupdb");
+    std::string dbfolder(basedir + "/" + dbname);
+    return std::make_unique<EmbeddedDatabase::Impl>(dbname, dbfolder);;
+}
+
+//Instance
+std::string EmbeddedDatabase::Impl::getDirectory(){
+    return m_fullpath;
+}
+
+
+void EmbeddedDatabase::Impl::setKeyValue(const std::string& key, const std::string& value){
+    m_keyValueStore -> setKeyValue(key, value);
+}
+
+std::string EmbeddedDatabase::Impl::getKeyValue(const std::string& key){
+    return m_keyValueStore -> getKeyValue(key);
+}
+
+
+
+
+
+EmbeddedDatabase::EmbeddedDatabase(std::string dbname, std::string fullpath,
+                                   std::unique_ptr<KeyValueStore>& kvStore)
+: mImpl(std::make_unique<EmbeddedDatabase::Impl>(dbname, fullpath, kvStore)){
+    
+}
 
 EmbeddedDatabase::EmbeddedDatabase(std::string& dbname, std::string& fullpath)
 :mImpl(std::make_unique<EmbeddedDatabase::Impl>(dbname, fullpath))
@@ -75,6 +191,15 @@ const std::unique_ptr<IDatabase> EmbeddedDatabase::createEmpty(std::string dbnam
     return EmbeddedDatabase::Impl::createEmpty(dbname);
 }
 
+
+
+const std::unique_ptr<IDatabase> EmbeddedDatabase::createEmpty(std::string dbname,std::unique_ptr<KeyValueStore>& kvStore){
+    return EmbeddedDatabase::Impl::createEmpty(dbname, kvStore);
+}
+
+
+
+
 const std::unique_ptr<IDatabase> EmbeddedDatabase::load(std::string& dbname){
     return EmbeddedDatabase::Impl::load(dbname);
 }
@@ -82,79 +207,3 @@ const std::unique_ptr<IDatabase> EmbeddedDatabase::load(std::string& dbname){
 void EmbeddedDatabase::destroy(){
     mImpl->destroy();
 }
-
-
-
-
-
-EmbeddedDatabase::Impl::Impl(std::string& dbname, std::string& fullpath)
-:m_name(dbname), m_fullpath(fullpath)
-{
-    
-}
-
-
-EmbeddedDatabase::Impl::~Impl(){
-    
-}
-// Embeded database
-
-
-// Management functions
-const std::unique_ptr<IDatabase> EmbeddedDatabase::Impl::createEmpty(std::string dbname){
-    std::string basedir(".groundupdb");
-    if(!fs::exists(basedir)){
-        fs::create_directory(basedir);
-    }
-    std::string dbfolder(basedir + "/" + dbname);
-    if(!fs::exists(dbfolder)){
-        fs::create_directory(dbfolder);
-    }
-    return std::make_unique<EmbeddedDatabase::Impl>(dbname, dbfolder);
-}
-
-
-void EmbeddedDatabase::Impl::destroy(){
-    if(fs::exists(m_fullpath)){
-        fs::remove_all(m_fullpath);
-    }
-}
-
-const std::unique_ptr<IDatabase> EmbeddedDatabase::Impl::load(std::string& dbname){
-    std::string basedir(".groundupdb");
-    std::string dbfolder(basedir + "/" + dbname);
-    return std::make_unique<EmbeddedDatabase::Impl>(dbname, dbfolder);;
-}
-
-//Instance
-std::string EmbeddedDatabase::Impl::getDirectory(){
-    return m_fullpath;
-}
-
-
-void EmbeddedDatabase::Impl::setKeyValue(const std::string& key, const std::string& value){
-    std::ofstream os;
-    os.open(m_fullpath + "/" + key + "_string.kv", std::ios::out | std::ios::trunc);
-    os << value;
-    os.close();
-}
-
-std::string EmbeddedDatabase::Impl::getKeyValue(const std::string& key){
-    std::ifstream is;
-    is.open(m_fullpath + "/" + key + "_string.kv", std::ios::in);
-    
-    std::string value;
-    
-    is.seekg(0, std::ios::end);
-    value.reserve(is.tellg());
-    is.seekg(0, std::ios::beg);
-    
-    value.assign((std::istreambuf_iterator<char> (is)),
-                 std::istreambuf_iterator<char> ());
-    
-    is.close();
-    return value;
-}
-
-
-

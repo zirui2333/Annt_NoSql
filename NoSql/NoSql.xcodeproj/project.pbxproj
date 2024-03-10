@@ -12,6 +12,9 @@
 		C84085812B977BF500A04B6C /* Database.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C840857F2B977BF500A04B6C /* Database.cpp */; };
 		C840858B2B97A03200A04B6C /* keyvalues-tests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C840858A2B97A03200A04B6C /* keyvalues-tests.cpp */; };
 		C840858D2B97E97E00A04B6C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C840858C2B97E97E00A04B6C /* main.cpp */; };
+		C8DE31232B9D229C00BAD177 /* filekeyvaluestore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DE31222B9D229C00BAD177 /* filekeyvaluestore.cpp */; };
+		C8DE31252B9D273500BAD177 /* MemoryKeyValueStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DE31242B9D273500BAD177 /* MemoryKeyValueStore.cpp */; };
+		C8DE31272B9D384C00BAD177 /* performance-test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C8DE31262B9D384C00BAD177 /* performance-test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +44,10 @@
 		C840858F2B97EC3400A04B6C /* cxxopts.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cxxopts.hpp; sourceTree = "<group>"; };
 		C84085912B98D94000A04B6C /* NoSql */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NoSql; sourceTree = BUILT_PRODUCTS_DIR; };
 		C871051F2B99587C00E0D5E3 /* extdatabase.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = extdatabase.hpp; sourceTree = "<group>"; };
+		C87BA5112B9BC7ED00EFD4AC /* Time.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Time.hpp; sourceTree = "<group>"; };
+		C8DE31222B9D229C00BAD177 /* filekeyvaluestore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = filekeyvaluestore.cpp; sourceTree = "<group>"; };
+		C8DE31242B9D273500BAD177 /* MemoryKeyValueStore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MemoryKeyValueStore.cpp; sourceTree = "<group>"; };
+		C8DE31262B9D384C00BAD177 /* performance-test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "performance-test.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +96,7 @@
 				C84085722B97772700A04B6C /* catch.hpp */,
 				C84085752B9777FA00A04B6C /* tests.hpp */,
 				C84085772B97786100A04B6C /* dbmanagement-tests.cpp */,
+				C8DE31262B9D384C00BAD177 /* performance-test.cpp */,
 			);
 			path = "groundupdb-tests";
 			sourceTree = "<group>";
@@ -108,6 +116,8 @@
 				C840857F2B977BF500A04B6C /* Database.cpp */,
 				C840857B2B977AAF00A04B6C /* GroundUpDB.cpp */,
 				C840858A2B97A03200A04B6C /* keyvalues-tests.cpp */,
+				C8DE31222B9D229C00BAD177 /* filekeyvaluestore.cpp */,
+				C8DE31242B9D273500BAD177 /* MemoryKeyValueStore.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -118,6 +128,7 @@
 				C84085802B977BF500A04B6C /* Database.hpp */,
 				C840857C2B977AAF00A04B6C /* GroundUpDB.hpp */,
 				C871051F2B99587C00E0D5E3 /* extdatabase.hpp */,
+				C87BA5112B9BC7ED00EFD4AC /* Time.hpp */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -179,11 +190,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8DE31252B9D273500BAD177 /* MemoryKeyValueStore.cpp in Sources */,
 				C840857D2B977AAF00A04B6C /* GroundUpDB.cpp in Sources */,
 				C840858B2B97A03200A04B6C /* keyvalues-tests.cpp in Sources */,
 				C84085812B977BF500A04B6C /* Database.cpp in Sources */,
+				C8DE31272B9D384C00BAD177 /* performance-test.cpp in Sources */,
 				C840858D2B97E97E00A04B6C /* main.cpp in Sources */,
 				C84085782B97786100A04B6C /* dbmanagement-tests.cpp in Sources */,
+				C8DE31232B9D229C00BAD177 /* filekeyvaluestore.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
