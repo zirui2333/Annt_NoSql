@@ -1,6 +1,6 @@
 The KeyValue NoSQL to store various type of variables and effciently search the stored variable.
 
-**Tutorial**
+**Guideline**
 
     ("c,create", "Create a DB")
     ("d,destroy", "Destroy a DB")
