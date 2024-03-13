@@ -1,6 +1,17 @@
 The simple nosql database to store various type of variables and effciently search the stored variable.
 
+**Tutorial**
 
+    ("c,create", "Create a DB")
+    ("d,destroy", "Destroy a DB")
+    ("s,set", "Set a key in a DB")
+    ("g,get", "Get a key from a DB")
+    ("n,name","Database name (required)", cxxopts::value<std::string>())
+    ("k,key","Key to set/get", cxxopts::value<std::string>())
+    ("v,value","Value to set", cxxopts::value<std::string>())
+
+    For example: create a database: -c -n "Any name of your database", 
+               set a keyValue pair: -s -n "You existed database" -k "key" -v "value"
 
 **Explaination of "extdatabase", "inMemoryKeyValueStore" and "FileKeyValueStore**":
 
