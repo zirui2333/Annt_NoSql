@@ -1,4 +1,4 @@
-The simple nosql database to store various type of variables and effciently search the stored variable.
+The KeyValue NoSQL to store various type of variables and effciently search the stored variable.
 
 **Tutorial**
 
