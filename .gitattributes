@@ -1,6 +1,2 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-
-# Exclude C++ files from GitHub language stats
-*.cpp linguist-vendored
-*.h linguist-vendored
